@@ -1,5 +1,5 @@
 const {prompt} = require("inquirer");
-const db = require("./Main/db");
+const db = require("./db");
 require("console.table");
 
 function loadPrompts() {
@@ -48,13 +48,13 @@ function loadPrompts() {
         {
           name: "Update Employee Role",
           value: "UPDATE_EMPLOYEE_ROLE",
-        }
+        },
         {
           name: "Quit",
           value: "QUIT",
-        },
-      ],
-    },
+        }
+      ]
+    }
   ]).then((res) => {
     let choice = res.choice;
     switch (choice) {
@@ -150,7 +150,7 @@ function updateEmployeeRole() {
           .then(([rows]) => {
             let roles = rows;
             const roleChoices = roles.map(({id, title}) => ({
-              name; title,
+              name: title,
               value: id
             }));
 
@@ -274,7 +274,7 @@ function removeDepartment() {
       prompt({
         type: "list",
         name: "departmentId",
-        message: "Please select the department to be removed"
+        message: "Please select the department to be removed",
         choices: departmentChoices
       })
         .then(res => db.removeDepartment(res.departmentId))
@@ -309,8 +309,8 @@ function addEmployee() {
           prompt({
             type: "list",
             name: "roleId",
-            message: "Please select the employee's role"
-            chocies: roleChoices
+            message: "Please select the employee's role",
+            choices: roleChoices
           })
             .then(res => {
               let roleId = res.roleId;
@@ -330,7 +330,7 @@ function addEmployee() {
                   prompt({
                     type: "list",
                     name: "managerId",
-                    message: "Select the employee's manager"
+                    message: "Select the employee's manager",
                     choices: managerChoices
                   })
                     .then(res => {
