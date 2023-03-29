@@ -13,50 +13,50 @@ function loadPrompts() {
       choices: [
         {
           name: "View All Departments",
-          value: "VIEW_DEPARTMENTS"
+          value: "VIEW_DEPARTMENTS",
         },
         {
           name: "View All Roles",
-          value: "VIEW_ROLES"
+          value: "VIEW_ROLES",
         },
         {
           name: "View All Employees",
-          value: "VIEW_EMPLOYEES"
+          value: "VIEW_EMPLOYEES",
         },
         {
           name: "Add Department",
-          value: "ADD_DEPARTMENT"
+          value: "ADD_DEPARTMENT",
         },
         {
           name: "Add Role",
-          value: "ADD_ROLE"
+          value: "ADD_ROLE",
         },
         {
           name: "Add Employee",
-          value: "ADD_EMPLOYEE"
+          value: "ADD_EMPLOYEE",
         },
         {
           name: "Remove Department",
-          value: "REMOVE_DEPARTMENT"
+          value: "REMOVE_DEPARTMENT",
         },
         {
           name: "Remove Role",
-          value: "REMOVE_ROLES"
+          value: "REMOVE_ROLES",
         },
         {
           name: "Remove Employee",
-          value: "REMOVE_EMPLOYEE"
+          value: "REMOVE_EMPLOYEE",
         },
         {
           name: "Update Employee Role",
-          value: "UPDATE_EMPLOYEE_ROLE"
+          value: "UPDATE_EMPLOYEE_ROLE",
         },
         {
           name: "Quit",
-          value: "QUIT"
-        }
-      ]
-    }
+          value: "QUIT",
+        },
+      ],
+    },
   ]).then((res) => {
     let choice = res.choice;
     switch (choice) {
