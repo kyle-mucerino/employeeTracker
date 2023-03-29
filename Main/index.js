@@ -13,50 +13,50 @@ function loadPrompts() {
       choices: [
         {
           name: "View All Departments",
-          value: "VIEW_DEPARTMENTS",
+          value: "VIEW_DEPARTMENTS"
         },
         {
           name: "View All Roles",
-          value: "VIEW_ROLES",
+          value: "VIEW_ROLES"
         },
         {
           name: "View All Employees",
-          value: "VIEW_EMPLOYEES",
+          value: "VIEW_EMPLOYEES"
         },
         {
           name: "Add Department",
-          value: "ADD_DEPARTMENT",
+          value: "ADD_DEPARTMENT"
         },
         {
           name: "Add Role",
-          value: "ADD_ROLE",
+          value: "ADD_ROLE"
         },
         {
           name: "Add Employee",
-          value: "ADD_EMPLOYEE",
+          value: "ADD_EMPLOYEE"
         },
         {
           name: "Remove Department",
-          value: "REMOVE_DEPARTMENT",
+          value: "REMOVE_DEPARTMENT"
         },
         {
           name: "Remove Role",
-          value: "REMOVE_ROLES",
+          value: "REMOVE_ROLES"
         },
         {
           name: "Remove Employee",
-          value: "REMOVE_EMPLOYEE",
+          value: "REMOVE_EMPLOYEE"
         },
         {
           name: "Update Employee Role",
-          value: "UPDATE_EMPLOYEE_ROLE",
+          value: "UPDATE_EMPLOYEE_ROLE"
         },
         {
           name: "Quit",
-          value: "QUIT",
-        },
-      ],
-    },
+          value: "QUIT"
+        }
+      ]
+    }
   ]).then((res) => {
     let choice = res.choice;
     switch (choice) {
@@ -111,7 +111,7 @@ function removeEmployee() {
     let employees = rows;
     const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
       name: `${first_name} ${last_name}`,
-      value: id,
+      value: id
     }));
 
     prompt([
@@ -119,8 +119,8 @@ function removeEmployee() {
         type: "list",
         name: "employeeId",
         message: "Which employee do you want to remove?",
-        choices: employeeChoices,
-      },
+        choices: employeeChoices
+      }
     ])
       .then((res) => db.removeEmployee(res.employeeId))
       .then(() => console.log("Employee removed!"))
@@ -133,7 +133,7 @@ function updateEmployeeRole() {
     let employees = rows;
     const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
       name: `${first_name} ${last_name}`,
-      value: id,
+      value: id
     }));
 
     prompt([
@@ -141,15 +141,15 @@ function updateEmployeeRole() {
         type: "list",
         name: "employeeId",
         message: "Which employee role do you want to update?",
-        choices: employeeChoices,
-      },
+        choices: employeeChoices
+      }
     ]).then((res) => {
       let employeeId = res.employeeId;
       db.findAllRoles().then(([rows]) => {
         let roles = rows;
         const roleChoices = roles.map(({ id, title }) => ({
           name: title,
-          value: id,
+          value: id
         }));
 
         prompt([
@@ -157,8 +157,8 @@ function updateEmployeeRole() {
             type: "list",
             name: "roleId",
             mesage: "Which role do you want to assign to selected employee?",
-            choices: roleChoices,
-          },
+            choices: roleChoices
+          }
         ])
           .then((res) => db.updateEmployeeRole(employeeId, res.roleId))
           .then(() => console.log("Updated employee role!"))
@@ -183,24 +183,24 @@ function addRole() {
     let departments = rows;
     const departmentChoices = departments.map(({ id, name }) => ({
       name: name,
-      value: id,
+      value: id
     }));
 
     prompt([
       {
         name: "title",
-        message: "Enter name of role",
+        message: "Enter name of role"
       },
       {
         name: "title",
-        message: "Enter role's salary",
+        message: "Enter role's salary"
       },
       {
         name: "list",
         name: "department_id",
         message: "Select the role's department",
-        choices: departmentChoices,
-      },
+        choices: departmentChoices
+      }
     ]).then((role) => {
       db.createRole(role)
         .then(() => console.log(`Added ${role.title} to the database`))
@@ -214,7 +214,7 @@ function removeRole() {
     let roles = rows;
     const roleChoices = roles.map(({ id, title }) => ({
       name: title,
-      value: id,
+      value: id
     }));
 
     prompt([
@@ -222,8 +222,8 @@ function removeRole() {
         type: "list",
         name: "roleId",
         message: "Please select the role to be removed",
-        choices: roleChoices,
-      },
+        choices: roleChoices
+      }
     ])
       .then((res) => db.removeRole(res.roleId))
       .then(() => console.log("The role has been removed!"))
@@ -245,8 +245,8 @@ function addDepartments() {
   prompt([
     {
       name: "name",
-      message: "Please enter the deparmtent name",
-    },
+      message: "Please enter the deparmtent name"
+    }
   ]).then((res) => {
     let name = res;
     db.createDepartment(name)
@@ -267,7 +267,7 @@ function removeDepartment() {
       type: "list",
       name: "departmentId",
       message: "Please select the department to be removed",
-      choices: departmentChoices,
+      choices: departmentChoices
     })
       .then((res) => db.removeDepartment(res.departmentId))
       .then(() => console.log(`Department removed!`))
@@ -293,7 +293,7 @@ function addEmployee() {
       let roles = rows;
       const roleChoices = roles.map(({ id, title }) => ({
         name: title,
-        value: id,
+        value: id
       }));
 
       prompt({
@@ -309,26 +309,26 @@ function addEmployee() {
           const managerChoices = employees.map(
             ({ id, first_name, last_name }) => ({
               name: `${first_name} ${last_name}`,
-              value: id,
+              value: id
             })
           );
 
           managerChoices.unshift({
             name: "None",
-            value: null,
+            value: null
           });
           prompt({
             type: "list",
             name: "managerId",
             message: "Select the employee's manager",
-            choices: managerChoices,
+            choices: managerChoices
           })
             .then((res) => {
               let employee = {
                 manager_id: res.managerId,
                 role_id: roleId,
                 first_name: firstName,
-                last_name: lastName,
+                last_name: lastName
               };
               db.createEmployee(employee);
             })
